@@ -1,0 +1,610 @@
+pkgname <- "pwn"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+library('pwn')
+
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("chkmate")
+### * chkmate
+
+flush(stderr()); flush(stdout())
+
+### Name: chkmate
+### Title: Cross check data.
+### Aliases: chkmate
+### Keywords: data cross check
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+id <- c(1:5)
+alpha <- c(0.015, 0.35, 0.0025, 0.007, 0.125)
+
+df0 <- data.frame(id,alpha)
+df1 <- data.frame(id,alpha)
+df1$alpha[2] <- 0.385# let's just increase this value by 10%
+df1$alpha[5] <- NA
+
+chkmate(df0$id,df0$alpha,df1$id,df1$alpha,0.05)
+chkmate(df0$id,df0$alpha,df1$id,df1$alpha,0.1)
+
+## The function is currently defined as
+function (id1, var1, id2, var2, threshold) 
+{
+    df1 <- data.frame(id1, var1)
+    df2 <- data.frame(id2, var2)
+    dfx <- merge(df1, df2, by.x = "id1", by.y = "id2", all = T)
+    colnames(dfx) <- c("id", "data1", "data2")
+    accept.diff <- (dfx[, 2] + dfx[, 3])/2 * threshold
+    dfx$chk <- ifelse(abs(dfx[, 2] - dfx[, 3]) > accept.diff, 
+        1, 0)
+    flag <- subset(dfx, chk == "1")
+    return(flag)
+  }
+
+
+
+cleanEx()
+nameEx("colmatch")
+### * colmatch
+
+flush(stderr()); flush(stdout())
+
+### Name: colmatch
+### Title: Identify overlapping columns in 2 dataframes.
+### Aliases: colmatch
+### Keywords: compare match column
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+alpha <- c(1:5)
+bravo <- c(6:10) 
+charlie <- c(11:15)
+delta <- c(16:20)
+echo <- c(21:25)
+
+df1 <- data.frame(alpha,bravo,charlie,delta)
+df1a <- data.frame(alpha,bravo,delta)
+df2 <- data.frame(alpha,bravo,delta,echo)
+
+colmatch(df1,df1a)
+colmatch(df2,df1)
+
+## The function is currently defined as
+function (red, blue) 
+{
+    redNmes <- names(red)
+    blueNmes <- names(blue)
+    RED <- data.frame(redNmes %in% blueNmes)
+    RED$redNmes <- redNmes
+    red1 <- subset(RED, RED$redNmes..in..blueNmes == "TRUE", 
+        drop = T)
+    x <- red1$redNmes
+    cat("The following columns are common to both datasets:\n", 
+        x, "\n")
+  }
+
+
+
+cleanEx()
+nameEx("colpatch")
+### * colpatch
+
+flush(stderr()); flush(stdout())
+
+### Name: colpatch
+### Title: Column Patch
+### Aliases: colpatch
+### Keywords: column patch
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+alpha <- c(1:5)
+bravo <- c(6:10) 
+charlie <- c(11:15)
+delta <- c(16:20)
+echo <- c(21:25)
+
+df1 <- data.frame(alpha,bravo,charlie,delta)
+df1a <- data.frame(alpha,bravo,delta)
+df2 <- data.frame(alpha,bravo,charlie,echo)
+
+dfx <- colpatch(df1,df1a)
+head(dfx)
+
+dfy <- colpatch(df1,df2)
+head(dfy)
+
+## The function is currently defined as
+function (red, blue) 
+{
+    blue_lacks <- names(red) %in% names(blue)
+    red_lacks <- names(blue) %in% names(red)
+    if (all(blue_lacks == T) & all(red_lacks == T)) {
+				cat("Column names are identical.\n No columns will be added for either dataframe. \n")
+        out <- rbind(red, blue)
+        return(out)
+    }
+    else if (!all(blue_lacks == T) & !all(red_lacks == T)) {
+        not_in_blue <- names(red) %in% names(blue)
+        redN <- names(red)
+        blue_mia <- data.frame(redN, not_in_blue)
+        blue_mia <- subset(blue_mia, blue_mia[, 2] == F)
+        blue_mia <- blue_mia[, 1]
+        blue_r <- length(blue[, 1])
+        Nblue_mia <- length(blue_mia)
+        not_in_red <- names(blue) %in% names(red)
+        blueN <- names(blue)
+        red_mia <- data.frame(blueN, not_in_red)
+        red_mia <- subset(red_mia, red_mia[, 2] == F)
+        red_mia <- red_mia[, 1]
+        red_r <- length(red[, 1])
+        Nred_mia <- length(red_mia)
+        Blue_needs <- data.frame(matrix(NA, nrow = blue_r, ncol = Nblue_mia))
+        colnames(Blue_needs) <- blue_mia
+        blue <- cbind(blue, Blue_needs)
+        Red_needs <- data.frame(matrix(NA, nrow = red_r, ncol = Nred_mia))
+        colnames(Red_needs) <- red_mia
+        red <- cbind(red, Red_needs)
+        out <- rbind(red, blue)
+        return(out)
+    }
+    else if (!all(blue_lacks == T) & all(red_lacks == T)) {
+        not_in_blue <- names(red) %in% names(blue)
+        redN <- names(red)
+        blue_mia <- data.frame(redN, not_in_blue)
+        blue_mia <- subset(blue_mia, blue_mia[, 2] == F)
+        blue_mia <- blue_mia[, 1]
+        blue_r <- length(blue[, 1])
+        Nblue_mia <- length(blue_mia)
+        Blue_needs <- data.frame(matrix(NA, nrow = blue_r, ncol = Nblue_mia))
+        colnames(Blue_needs) <- blue_mia
+        blue <- cbind(blue, Blue_needs)
+        out <- rbind(red, blue)
+        return(out)
+    }
+    else if (all(blue_lacks == T) & !all(red_lacks == T)) {
+        not_in_red <- names(blue) %in% names(red)
+        blueN <- names(blue)
+        red_mia <- data.frame(blueN, not_in_red)
+        red_mia <- subset(red_mia, red_mia[, 2] == F)
+        red_mia <- red_mia[, 1]
+        red_r <- length(red[, 1])
+        Nred_mia <- length(red_mia)
+        Red_needs <- data.frame(matrix(NA, nrow = red_r, ncol = Nred_mia))
+        colnames(Red_needs) <- red_mia
+        red <- cbind(red, Red_needs)
+        out <- rbind(red, blue)
+        return(out)
+    }
+  }
+
+
+
+cleanEx()
+nameEx("dlprime")
+### * dlprime
+
+flush(stderr()); flush(stdout())
+
+### Name: dlprime
+### Title: Primes those annoying variables that have a detection limit and
+###   have been keyed in as such.
+### Aliases: dlprime
+### Keywords: detection limit
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+id <- c(1:5)
+alpha <- c(0.015, "<0.003", 0.0025, 0.007, "<0.003")
+bravo <- c(0.002, "<0.003", 0.007, 0.125, ">1")
+x <- data.frame(id,alpha,bravo)
+
+x <- dlprime(x,"alpha")
+x <- dlprime(x,"bravo")
+
+## The function is currently defined as
+function (df1, varX) 
+{
+    red <- as.character(df1[, varX])
+    varNme <- as.character(varX)
+    varNme_less <- paste(varNme, "detect", sep = "_")
+    red.1stChar <- substr(red, 1, 1)
+    dl_lim <- ifelse(red.1stChar == "<", 0, 1)
+    red <- as.numeric(sub("<", "", red))
+    blue <- data.frame(red, dl_lim)
+    x <- subset(blue, blue$dl_lim == 0, drop = T)
+    dls <- max(x$red)
+    blue$dl_lim <- ifelse(blue$red < dls & blue$dl_lim != 0, 
+        -1, blue$dl_lim)
+    red <- blue$red
+    dl_lim <- blue$dl_lim
+    df1[, varX] <- NULL
+    df1$red <- red
+    names(df1)[names(df1) == "red"] <- varNme
+    df1$detect_lim <- dl_lim
+    names(df1)[names(df1) == "detect_lim"] <- varNme_less
+    return(df1)
+	}
+
+
+
+cleanEx()
+nameEx("dlsplit")
+### * dlsplit
+
+flush(stderr()); flush(stdout())
+
+### Name: dlsplit
+### Title: Splits the "<" sign from those annoying variables that have a
+###   detection limit and have been keyed in as such.
+### Aliases: dlsplit
+### Keywords: detection limit split fix
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+id <- c(1:5)
+alpha <- c(0.015, "<0.003", 0.0025, 0.007, "<0.003")
+bravo <- c(0.002, "<0.003", 0.007, 0.125, ">0.5")
+x <- data.frame(id,alpha,bravo)
+
+x <- dlsplit(x,"alpha")
+x <- dlsplit(x,"bravo")
+
+## The function is currently defined as
+function (df1, varX) 
+{
+		red <- as.character(df1[,varX])
+		varNme <- as.character(varX)
+		varNme_less <- paste(varNme,"ND",sep="_")
+		red.1stChar <- substr(red,1,1)
+		red.lessthan <- ifelse(red.1stChar=="<","<",
+										ifelse(red.1stChar==">",">",NA))
+		red <- sub("<","",red)# remove less than sign.
+		red <- as.numeric(sub(">","",red))# remove more than sign. 
+		df1[,varX] <- NULL
+		df1$var.nd <- red.lessthan
+		names(df1)[names(df1) == 'var.nd'] <- varNme_less
+		df1$red <- red
+		names(df1)[names(df1) == 'red'] <- varNme
+		return(df1)
+		}
+
+
+
+cleanEx()
+nameEx("fillVec")
+### * fillVec
+
+flush(stderr()); flush(stdout())
+
+### Name: fillVec
+### Title: Fill in the blanks when people can't be bothered to.
+### Aliases: fillVec
+### Keywords: ~kwd1 ~kwd2
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+a <- c("a",NA,"bravo",NA,NA,"charlie",NA,NA,NA)
+fillVec(a)
+## The function is currently defined as
+function (broken_list) 
+{
+    curr <- c()
+    a <- c()
+    for (i in broken_list) {
+        if (is.na(i)) {
+            a <- c(a, curr)
+        }
+        else {
+            curr <- i
+            a <- c(a, curr)
+        }
+    }
+    return(a)
+  }
+
+
+
+cleanEx()
+nameEx("pwn-package")
+### * pwn-package
+
+flush(stderr()); flush(stdout())
+
+### Name: pwn-package
+### Title: Own your data.
+### Aliases: pwn-package pwn
+### Keywords: data
+
+### ** Examples
+
+# refer to help file for specific functions. 
+
+
+
+cleanEx()
+nameEx("rec")
+### * rec
+
+flush(stderr()); flush(stdout())
+
+### Name: rec
+### Title: Recon the data.
+### Aliases: rec
+### Keywords: ~kwd1 ~kwd2
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (df1, details = TRUE) 
+{
+    if (isTRUE(details)) {
+        cases <- length(df1[, 1])
+        paras <- length(df1)
+        cat("Data has: ", cases, " cases and ", paras, "parameters. \n")
+        varnames <- names(df1)
+        n_NA <- colSums(is.na(df1))
+        n_NA <- data.frame(n_NA)
+        n_NA <- n_NA[, 1]
+        varClass <- c()
+        varMin <- c()
+        varMn <- c()
+        varMd <- c()
+        varMax <- c()
+        for (i in df1) {
+            var_class <- class(i)
+            varClass <- c(varClass, var_class)
+            if (var_class == "numeric" | var_class == "integer") {
+                var_min <- min(i, na.rm = T)
+                varMin <- c(varMin, var_min)
+                var_mn <- mean(i, na.rm = T)
+                varMn <- c(varMn, var_mn)
+                var_md <- median(i, na.rm = T)
+                varMd <- c(varMd, var_md)
+                var_max <- max(i, na.rm = T)
+                varMax <- c(varMax, var_max)
+            }
+            else {
+                varMin <- c(varMin, NA)
+                varMn <- c(varMn, NA)
+                varMd <- c(varMd, NA)
+                varMax <- c(varMax, NA)
+            }
+        }
+        dfx <- data.frame(varnames, varClass, n_NA, varMin, varMn, 
+            varMd, varMax)
+        colnames(dfx) <- c("Variable", "Class", "NAs", "Min", 
+            "Mean", "Median", "Max")
+        return(dfx)
+    }
+    else {
+        cases <- length(df1[, 1])
+        paras <- length(df1)
+        cat("Data has: ", cases, " cases and ", paras, "parameters. \n")
+    }
+  }
+
+
+
+cleanEx()
+nameEx("recomp")
+### * recomp
+
+flush(stderr()); flush(stdout())
+
+### Name: recomp
+### Title: Recompile data from 2 data sets.
+### Aliases: recomp
+### Keywords: data ~kwd2
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+x1 <- c(1:5)
+x2 <- c(6:10)
+x3 <- c(11:15)
+x4 <- c(16:20)
+x5 <- c(21:25)
+
+# what you thought you had 2 copies of
+dfx <- data.frame(rbind(x1,x2,x3,x4,x5))
+colnames(dfx) <- c("alpha","bravo","charlie","delta","echo")
+
+dfx$id <- row.names(dfx)
+print(dfx)
+
+x4 <- c(47,48,49,NA,51)
+dfA <- data.frame(rbind(x1,x2,x3,x4,x5))
+colnames(dfA) <- c("alpha","bravo","charlie","delta","echo")
+dfA$id <- row.names(dfA)
+print(dfA)
+
+# if there's missing cases 
+x1 <- c(31:35)
+dfz <- data.frame(rbind(x1,x3,x4,x5))
+colnames(dfz) <- c("alpha","bravo","charlie","delta","echo")
+dfz$id <- row.names(dfz)
+print(dfz)
+# say we favour dfz 
+datadawg <- recomp(dfz,dfx)
+print(datadawg)
+
+## The function is currently defined as
+function (red, blu) 
+{
+    f0 <- function(x, y) {
+        a <- ifelse(!is.na(x), x, y)
+        return(a)
+    }
+    n.red <- red[, "id"]
+    n.blu <- blu[, "id"]
+    purple <- unique(c(n.red, n.blu))
+    df0 <- data.frame(purple)
+    df0$red_missing <- !(purple %in% red$id)
+    df0$blu_missing <- !(purple %in% blu$id)
+    red_patch <- as.vector(df0[df0$red_missing == T, 1])
+    blu_patch <- as.vector(df0[df0$blu_missing == T, 1])
+    if (length(red_patch) > 0 & length(blu_patch) > 0) {
+        red2 <- red[-c(1:length(red[, 1])), ]
+        blank_row <- rep(NA, length(red2))
+        for (i in c(1:length(red_patch))) {
+            red2 <- rbind(red2, blank_row)
+        }
+        colnames(red2) <- names(red)
+        red2$id <- red_patch
+        red <- rbind(red, red2)
+        red <- red[order(red$id), ]
+        # print(red)
+        blu2 <- blu[-c(1:length(blu[, 1])), ]
+        blank_row <- rep(NA, length(blu2))
+        for (i in c(1:length(blu_patch))) {
+            blu2 <- rbind(blu2, blank_row)
+        }
+        colnames(blu2) <- names(blu)
+        blu2$id <- blu_patch
+        blu <- rbind(blu, blu2)
+        blu <- blu[order(blu$id), ]
+        # print(blu)
+        dfx <- mapply(f0, red, blu)
+    }
+    else if (length(red_patch) == 0 & length(blu_patch) > 0) {
+        blu2 <- blu[-c(1:length(blu[, 1])), ]
+        blank_row <- rep(NA, length(blu2))
+        for (i in c(1:length(blu_patch))) {
+            blu2 <- rbind(blu2, blank_row)
+        }
+        colnames(blu2) <- names(blu)
+        blu <- rbind(blu, blu2)
+        blu <- blu[order(blu$id), ]
+        dfx <- mapply(f0, red, blu)
+    }
+    else if (length(red_patch) > 0 & length(blu_patch) == 0) {
+        red2 <- red[-c(1:length(red[, 1])), ]
+        blank_row <- rep(NA, length(red2))
+        for (i in c(1:length(red_patch))) {
+            red2 <- rbind(red2, blank_row)
+        }
+        colnames(red2) <- names(red)
+        red2$id <- red_patch
+        red <- rbind(red, red2)
+        red <- red[order(red$id), ]
+        # print(red)
+        dfx <- mapply(f0, red, blu)
+    }
+    else {
+        dfx <- mapply(f0, red, blu)
+    }
+    return(dfx)
+  }
+
+
+
+cleanEx()
+nameEx("xchk")
+### * xchk
+
+flush(stderr()); flush(stdout())
+
+### Name: xchk
+### Title: Compares 2 character vectors and returns what's different. May
+###   be used for either case ids or column names or whatever else you want
+###   to cross check.
+### Aliases: xchk
+### Keywords: data ~kwd2
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+a <- c("alpha","bravo","charlie","delta","echo")
+b <- c("alpha","bravo","charlie","echo","foxtrot")
+
+xchk(a,b)
+
+# if checking cases: 
+# xchk(df1$id,df2$id) # or whatever your dataframes and/or unique case identifiers are called.
+
+# if checking columns: 
+# xchk(names(df1),names(df2))
+
+## The function is currently defined as
+function (red, blu) 
+{
+    red <- as.character(red)
+    blu <- as.character(blu)
+    purple <- unique(c(red, blu))
+    df0 <- data.frame(purple)
+    df0$red_missing <- !(purple %in% red)
+    df0$blu_missing <- !(purple %in% blu)
+    red_patch <- as.vector(df0[df0$red_missing == T, 1])
+    blu_patch <- as.vector(df0[df0$blu_missing == T, 1])
+    if (length(red_patch) > 0 & length(blu_patch) > 0) {
+        cat("Values missing in the FIRST vector:\n")
+        for (i in red_patch) {
+            cat(i, "\n")
+        }
+        cat("\nValues missing in the SECOND vector:\n")
+        for (i in blu_patch) {
+            cat(i, "\n")
+        }
+    }
+    else if (length(red_patch) == 0 & length(blu_patch) > 0) {
+        cat("NO values missing in the first vector.\n")
+        cat("\nValues missing in the SECOND vector:\n")
+        for (i in blu_patch) {
+            cat(i, "\n")
+        }
+    }
+    else if (length(red_patch) > 0 & length(blu_patch) == 0) {
+        cat("Values missing in the FIRST vector:\n")
+        for (i in red_patch) {
+            cat(i, "\n")
+        }
+        cat("No values missing in the second vector.\n")
+    }
+    else {
+        cat("Cases match.\n")
+    }
+  }
+
+
+
+### * <FOOTER>
+###
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')

@@ -1,0 +1,101 @@
+* using log directory ‘/home/hellhound/pwn/pwn_0.1.5/pwn.Rcheck’
+* using R version 3.2.1 (2015-06-18)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘pwn/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘pwn’ version ‘0.1.5’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘pwn’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... NOTE
+prepare_Rd: chkmate.Rd:38-40: Dropping empty section \details
+prepare_Rd: chkmate.Rd:50-52: Dropping empty section \note
+prepare_Rd: chkmate.Rd:44-46: Dropping empty section \references
+prepare_Rd: chkmate.Rd:56-58: Dropping empty section \seealso
+prepare_Rd: colmatch.Rd:22-24: Dropping empty section \details
+prepare_Rd: colmatch.Rd:34-36: Dropping empty section \note
+prepare_Rd: colmatch.Rd:28-30: Dropping empty section \references
+prepare_Rd: colmatch.Rd:40-42: Dropping empty section \seealso
+prepare_Rd: colpatch.Rd:22-24: Dropping empty section \details
+prepare_Rd: colpatch.Rd:35-37: Dropping empty section \note
+prepare_Rd: colpatch.Rd:29-31: Dropping empty section \references
+prepare_Rd: colpatch.Rd:41-43: Dropping empty section \seealso
+prepare_Rd: dlprime.Rd:27-29: Dropping empty section \details
+prepare_Rd: dlprime.Rd:48-50: Dropping empty section \note
+prepare_Rd: dlprime.Rd:42-44: Dropping empty section \references
+prepare_Rd: dlprime.Rd:54-56: Dropping empty section \seealso
+prepare_Rd: dlsplit.Rd:27-29: Dropping empty section \details
+prepare_Rd: dlsplit.Rd:30-36: Dropping empty section \value
+prepare_Rd: dlsplit.Rd:43-45: Dropping empty section \note
+prepare_Rd: dlsplit.Rd:37-39: Dropping empty section \references
+prepare_Rd: dlsplit.Rd:49-51: Dropping empty section \seealso
+prepare_Rd: fillVec.Rd:19-21: Dropping empty section \details
+prepare_Rd: fillVec.Rd:31-33: Dropping empty section \note
+prepare_Rd: fillVec.Rd:25-27: Dropping empty section \references
+prepare_Rd: fillVec.Rd:37-39: Dropping empty section \seealso
+prepare_Rd: rec.Rd:23-25: Dropping empty section \details
+prepare_Rd: rec.Rd:35-37: Dropping empty section \note
+prepare_Rd: rec.Rd:29-31: Dropping empty section \references
+prepare_Rd: rec.Rd:41-43: Dropping empty section \seealso
+prepare_Rd: recomp.Rd:47-49: Dropping empty section \note
+prepare_Rd: recomp.Rd:40-42: Dropping empty section \references
+prepare_Rd: recomp.Rd:53-55: Dropping empty section \seealso
+prepare_Rd: xchk.Rd:26-28: Dropping empty section \details
+prepare_Rd: xchk.Rd:29-35: Dropping empty section \value
+prepare_Rd: xchk.Rd:43-45: Dropping empty section \note
+prepare_Rd: xchk.Rd:36-38: Dropping empty section \references
+prepare_Rd: xchk.Rd:49-51: Dropping empty section \seealso
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... OK
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+LaTeX errors found:
+! LaTeX Error: File `url.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.45 \RequirePackage
+                    {textcomp}        % for \textquotesingle etc^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+* checking PDF version of manual without hyperrefs or index ... ERROR
+* DONE
+Status: 1 ERROR, 1 WARNING, 2 NOTEs

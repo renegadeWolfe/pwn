@@ -1,0 +1,17 @@
+chkmate                 Cross check data.
+colmatch                Identify overlapping columns in 2 dataframes.
+colpatch                Column Patch
+dlprime                 Primes those annoying variables that have a
+                        detection limit and have been keyed in as such.
+dlsplit                 Splits the "<" sign from those annoying
+                        variables that have a detection limit and have
+                        been keyed in as such.
+fillVec                 Fill in the blanks when people can't be
+                        bothered to.
+pwn-package             Own your data.
+rec                     Recon the data.
+recomp                  Recompile data from 2 data sets.
+xchk                    Compares 2 character vectors and returns what's
+                        different. May be used for either case ids or
+                        column names or whatever else you want to cross
+                        check.
