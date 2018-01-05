@@ -1,5 +1,1 @@
-chkmate <- function(id1,var1,id2,var2,threshold){df1 <- data.frame(id1,var1)df2 <- data.frame(id2,var2)
-dfx <- merge(df1,df2,by.x="id1",by.y="id2",all=T)colnames(dfx) <- c("id","data1","data2")accept.diff <- (dfx[,2]+dfx[,3])/2 * thresholddfx$chk <- ifelse(abs(dfx[,2]-dfx[,3]) > accept.diff,1,0)dfx$chk <- ifelse(is.na(dfx$chk),1,dfx$chk)
-flag <- subset(dfx,dfx$chk=="1")flag$chk <- NULL
-return(flag)
-}
+chkmate <- function(id1,var1,id2,var2,threshold){if(missing(threshold)){	threshold <- 0.1}if(is.factor(var1) | is.factor(var2) | is.character(var1) | is.character(var2)){df1 <- data.frame(id1,var1)df2 <- data.frame(id2,var2)dfx <- merge(df1,df2,by.x="id1",by.y="id2",all=T)colnames(dfx) <- c("id","data1","data2")dfx$data1 <- as.character(dfx$data1)dfx$data2 <- as.character(dfx$data2) dfx$chk <- ifelse(dfx$data1==dfx$data2,0,1)} else{df1 <- data.frame(id1,var1)df2 <- data.frame(id2,var2)dfx <- merge(df1,df2,by.x="id1",by.y="id2",all=T)colnames(dfx) <- c("id","data1","data2")accept.diff <- (dfx[,2]+dfx[,3])/2 * thresholddfx$chk <- ifelse(abs(dfx[,2]-dfx[,3]) > accept.diff,1,0)dfx$chk <- ifelse(is.na(dfx$chk),1,dfx$chk)dfx$chk <- ifelse(is.na(dfx$data1) & is.na(dfx$data2), 0, dfx$chk)}flag <- subset(dfx,dfx$chk=="1")flag$chk <- NULLreturn(flag)}
