@@ -1,5 +1,5 @@
-rec <- function(df1,details=TRUE){
-if(isTRUE(details)){
+rec <- function(df1,det=TRUE){
+if(isTRUE(det)){
 cases <- length(df1[,1])
 paras <- length(df1)
 cat("Data has: ", cases," cases and ",paras,"parameters. \n" )
