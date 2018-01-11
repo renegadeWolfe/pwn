@@ -2,22 +2,21 @@
 \alias{rec}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
 Recon the data. 
 }
 \description{
 Presents a summary of a dataframe. Results can be stored for later use. Now with the option of silencing the output, and simply returning a line stating the number of cases and parameters in the dataset. 
 }
 \usage{
-rec(df1, details = TRUE)
+rec(df1, verbose = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{df1}{
 is a dataframe. 
 }
-  \item{details}{
-boolean variable, value defaults to TRUE. If set to FALSE, will not return the table describing each of the parameters. 
+  \item{verbose}{
+Boolean argument, defaults to TRUE. If set to FALSE, will not return the table describing each of the parameters.
 }
 }
 \details{
@@ -47,9 +46,9 @@ hellhound
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (df1, details = TRUE) 
+function (df1, verbose = TRUE) 
 {
-    if (isTRUE(details)) {
+    if (isTRUE(verbose)) {
         cases <- length(df1[, 1])
         paras <- length(df1)
         cat("Data has: ", cases, " cases and ", paras, "parameters. \n")
