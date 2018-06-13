@@ -7,8 +7,8 @@ Primes those annoying variables that have a detection limit and have been keyed 
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-This is a slightly more advanced version of dlsplit. 
-dlprime will return the dataframe with the target variable as a numeric vector, and a second variable, taking the name "var_detect", which will have one of 3 values: 2,1, 0 and -1. 
+This is a slightly more advanced version of dlsplit.
+dlprime will return the dataframe with the target variable as a numeric vector, and a second variable, taking the name "var_detect", which will have one of 3 values: 2,1, 0 and -1
 }
 \usage{
 dlprime(df1, varX)

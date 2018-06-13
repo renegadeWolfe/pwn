@@ -1,8 +1,8 @@
 Package: pwn
 Type: Package
-Title: Get a grip on your data.
-Version: 0.1.5
-Date: 2017-12-28
+Title: Own your data. 
+Version: 0.1.6
+Date: 2018-06-11
 Author: hellhound
 Maintainer: hellhound <hellhound007@gmail.com>
 Description: A collection of functions used to clean data or just get to know a dataset better. 

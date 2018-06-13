@@ -1,4 +1,5 @@
-xchk <- function(red,blu){
+xchk <-
+function(red,blu){
 	red <- as.character(red)
 	blu <- as.character(blu)
 	purple <- unique(c(red,blu))

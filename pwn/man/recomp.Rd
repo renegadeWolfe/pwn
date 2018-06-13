@@ -7,7 +7,7 @@ Recompile data from 2 data sets.
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-This function takes 2 data frames and compiles them into a single one. This has nothing to do with rbind or merge. Rather, it's for the unfortunate times where you realize that 2 data sets you believed to be the same weren't. 
+This function takes 2 data frames and compiles them into a single one. This has nothing to do with rbind or merge. Rather, it's for the unfortunate times where you realize that 2 data sets you believed to be the same weren't 
 
 }
 \usage{

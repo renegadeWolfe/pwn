@@ -6,7 +6,7 @@
 Own your data.
 }
 \description{
-A collection of utility functions for data cleaning, and just getting to know the data better. 
+A collection of utility functions for data cleaning, and just getting to know the data better
 }
 \details{
 \tabular{ll}{

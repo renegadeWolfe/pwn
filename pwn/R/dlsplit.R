@@ -1,4 +1,5 @@
-dlsplit <- function(df1,varX){
+dlsplit <-
+function(df1,varX){
 red <- as.character(df1[,varX])
 varNme <- as.character(varX)
 varNme_less <- paste(varNme,"ND",sep="_")

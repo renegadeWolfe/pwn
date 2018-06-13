@@ -8,7 +8,7 @@ Splits the "<" sign from those annoying variables that have a detection limit an
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 Cleans those unusable variables that have a detection limit, and were keyed in with the "<" sign. R will read such variables as a factor. 
-This will return the variable in question as a numeric and another variable that consists solely of the "<" sign.
+This will return the variable in question as a numeric and another variable that consists solely of the "<" sign
 }
 \usage{
 dlsplit(df1, varX)

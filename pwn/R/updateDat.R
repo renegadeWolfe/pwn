@@ -1,7 +1,5 @@
-# This function was written to make it easier to bulk update data in a dataframe. 
-# To use: updateDat(df1,df2,"common_id")
-
-updateDat <- function(df0,updat,idvar){
+updateDat <-
+function(df0,updat,idvar){
 df0N <- names(df0)
 updatN <- names(updat)
 colToUpdate <- df0N[df0N %in% updatN]

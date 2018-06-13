@@ -1,4 +1,5 @@
-recomp <- function(red,blu){# red is slightly favoured.
+recomp <-
+function(red,blu){# red is slightly favoured.
 	f0 <- function(x,y){# !!! function is local !!! 
 		a <- ifelse(!is.na(x),x,y)
 		return(a)

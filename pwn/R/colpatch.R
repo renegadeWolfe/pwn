@@ -1,4 +1,5 @@
-colpatch <- function(red,blue){
+colpatch <-
+function(red,blue){
 blue_lacks <- names(red)%in%names(blue)#not in blue
 red_lacks <- names(blue)%in%names(red)#not in red
 	if(all(blue_lacks==T) & all(red_lacks==T)){# datasets have same columns

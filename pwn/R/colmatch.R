@@ -1,4 +1,5 @@
-colmatch <- function(red,blue){
+colmatch <-
+function(red,blue){
 	redNmes <- names(red)
 	blueNmes <- names(blue)
 	RED <- data.frame(redNmes %in% blueNmes)

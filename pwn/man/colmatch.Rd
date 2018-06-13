@@ -5,7 +5,7 @@
 Identify overlapping columns in 2 dataframes. 
 }
 \description{
-This function is meant to flag overlapping columns in 2 dataframes. Helps weed out duplicate variables when merging data. 
+This function is meant to flag overlapping columns in 2 dataframes. Helps weed out duplicate variables when merging data
 }
 \usage{
 colmatch(red, blue)

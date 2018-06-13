@@ -5,7 +5,7 @@
 Fill in the blanks when people can't be bothered to. 
 }
 \description{
-This function is meant to fill in a vector of what would be repeated values but for the fact that the person who created the original table (usually in excel or something like that) didn't fill in. 
+This function is meant to fill in a vector of what would be repeated values but for the fact that the person who created the original table (usually in excel or something like that) didn't fill in
 }
 \usage{
 fillVec(broken_list)

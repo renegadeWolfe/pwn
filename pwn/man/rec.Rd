@@ -5,17 +5,17 @@
 Recon the data. 
 }
 \description{
-Presents a summary of a dataframe. Results can be stored for later use. Now with the option of silencing the output, and simply returning a line stating the number of cases and parameters in the dataset. 
+Presents a summary of a dataframe. Results can be stored for later use. Now with the option of silencing the output, and simply returning a line stating the number of cases and parameters in the dataset
 }
 \usage{
-rec(df1, verbose = TRUE)
+rec(df1, v = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{df1}{
 is a dataframe. 
 }
-  \item{verbose}{
+  \item{v}{
 Boolean argument, defaults to TRUE. If set to FALSE, will not return the table describing each of the parameters.
 }
 }
@@ -44,11 +44,17 @@ hellhound
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
 ##--	or do  help(data=index)  for the standard data sets.
+alpha <- c(1:5)
+bravo <- c("A","B","C","D","E")
+charlie <- c(6:9,NA)
+df1 <- data.frame(alpha,bravo,charlie)
+rec(df1)
+rec(df1,v=FALSE)
 
 ## The function is currently defined as
-function (df1, verbose = TRUE) 
+function (df1, v = TRUE) 
 {
-    if (isTRUE(verbose)) {
+    if (isTRUE(v)) {
         cases <- length(df1[, 1])
         paras <- length(df1)
         cat("Data has: ", cases, " cases and ", paras, "parameters. \n")
@@ -96,5 +102,4 @@ function (df1, verbose = TRUE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ data }

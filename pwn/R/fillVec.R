@@ -1,4 +1,5 @@
-fillVec <- function(broken_list){
+fillVec <-
+function(broken_list){
 curr <- c()
 a <- c()
 for(i in broken_list){

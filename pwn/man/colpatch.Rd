@@ -5,7 +5,7 @@
 Column Patch
 }
 \description{
-colpatch takes 2 dataframes and fills in whatever columns are missing. If rbind isn't working and it says your dataframes have the same number of columns, run colchk to see what's different.
+colpatch takes 2 dataframes and fills in whatever columns are missing - if rbind isn't working and it says your dataframes have the same number of columns, run colchk to see what's different
 }
 \usage{
 colpatch(red, blue)
