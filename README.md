@@ -3,7 +3,7 @@ This is a small library intended to help with data cleaning. It differs from (d)
 To that end, it includes functions to cross-check data, ease merging of discordant datasets, bulk update, and a function that is a sort of hybrid between str() and summary(). 
 
 To install: 
-1) Download the zip file.
+1) Download the zip (they end with .tar.gz) file.
 2) Fire up R console (it might not work in R studio) and type: 
 	install.packages("X:/path/pwn_X.X.X.tar.gz",type="source")
 
